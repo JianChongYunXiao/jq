@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+#box{
+    width:100px;
+    height: 100px;
+    background: red;
+    position: absolute;
+    top:0;
+    left:0;
+}
+</style>
+</head>
+<body>
+    <div id="box"></div>
+<script src="./jquery-3.2.1.min.js"></script>
+<script>
+    $('#box').mousedown(function(ev){              // 设置盒子上的按下事件。
+        let disX = ev.pageX - $('#box').position().left; // 设置变量：并赋值为鼠标点的X轴坐标减去盒子的的左边距离
+        let disY = ev.pageY - this.offsetTop;      // 设置变量：并赋值为鼠标点的Y轴坐标减去盒子的上边距离；
+        $(document).mousemove(function(ev){        // 设置document上的移动事件，
+            $('#box').css({                        // 盒子的css样式
+                left:ev.pageX - disX,              // 左边框距左边的距离为鼠标现在的X轴坐标点减去之前赋值的X轴距离；
+                top:ev.pageY - disY                // 上边框距上边的距离为鼠标现在的Y轴坐标点减去之前赋值的Y轴距离
+            });
+        });
+        $(document).mouseup(function(ev){          // document上的移出事件
+            $(document).off();                     // document 上的移动事件解除绑定。
+        }); 
+    });
+</script>
+</body>
+</html>
